@@ -1,0 +1,672 @@
+:root {
+    --_size: 1.6rem;
+    --_font-default: "Syne", sans-serif;
+    --_font-accent: "Syne", sans-serif;
+    --_radius-s: 1.5rem;
+    --_radius-m: 2.2rem;
+    --_radius-l: 3rem;
+    --_radius-xl: 3.6rem;
+    --_animspeed-fast: 0.1s;
+    --_animspeed-medium: 0.3s;
+    --_animspeed-slow: 0.6s;
+    --_animbezier: cubic-bezier(0.23, 0.65, 0.74, 1.09);
+
+    /* --- Define all light color scheme variables --- */
+    --base--light: #e6ebf4;
+    --base-tint--light: #ebf0f7;
+    --base-shade--light: #bdc1c8;
+    --accent--light: #aa70e0;
+    --secondary--light: #7059e2;
+    --secondary-rgba--light: rgba(112,89,226,0.3);
+    --stroke-controls--light: #a8b0c1;
+    --stroke-controls-neutral--light: rgba(0,0,0,0.3);
+    --stroke-elements--light: #d1d5e0;
+    --t-bright--light: #22232c;
+    --t-medium--light: #424550;
+    --t-muted--light: #666a79;
+    --t-accent--light: #8f56cc;
+    --t-secondary--light: #5d4ec4;
+    --t-disabled--light: #717586;
+    --t-placeholder--light: #969bb2;
+    --base-opp--light: #111111;
+    --t-opp-bright--light: #ebf0f7;
+    --t-opp-medium--light: #C7C6D3;
+    --t-opp-muted--light: #A1A1AF;
+    --gradient-one--light: #CEC4EF;
+    --gradient-two--light: #f5c5cd;
+    --gradient-three--light: #ac8fe3;
+
+    /* --- Define all dark color scheme variables --- */
+    --base--dark: #111111;
+    --base-tint--dark: #161616;
+    --base-shade--dark: #000000;
+    --accent--dark: #E4B8BF;
+    --secondary--dark: #CEC4EF;
+    --secondary-rgba--dark: rgba(206,196,239,0.2);
+    --stroke-controls--dark: #4B4B51;
+    --stroke-controls-neutral--dark: rgba(255,255,255,0.3);
+    --stroke-elements--dark: #303033;
+    --t-bright--dark: #e9e9f1;
+    --t-medium--dark: #C7C6D3;
+    --t-muted--dark: #A1A1AF;
+    --t-accent--dark: #E1BAC5;
+    --t-secondary--dark: #CEC4EF;
+    --t-disabled--dark: #8B8A91;
+    --t-placeholder--dark: #58585E;
+    --base-opp--dark: #fafafa;
+    --t-opp-bright--dark: #121319;
+    --t-opp-medium--dark: #626577;
+    --t-opp-muted--dark: #717586;
+    --gradient-one--dark: #a287d5;
+    --gradient-two--dark: #E4B8BF;
+    --gradient-three--dark: #8b6bc5;
+
+    /* --- Set default (light) theme variables for elements --- */
+    --base: var(--base--light);
+    --base-tint: var(--base-tint--light);
+    --base-shade: var(--base-shade--light);
+    --accent: var(--accent--light);
+    --secondary: var(--secondary--light);
+    --secondary-rgba: var(--secondary-rgba--light);
+    --stroke-controls: var(--stroke-controls--light);
+    --stroke-controls-neutral: var(--stroke-controls-neutral--light);
+    --stroke-elements: var(--stroke-elements--light);
+    --t-bright: var(--t-bright--light);
+    --t-medium: var(--t-medium--light);
+    --t-muted: var(--t-muted--light);
+    --t-accent: var(--t-accent--light);
+    --t-secondary: var(--t-secondary--light);
+    --t-disabled: var(--t-disabled--light);
+    --t-placeholder: var(--t-placeholder--light);
+    --base-opp: var(--base-opp--light);
+    --t-opp-bright: var(--t-opp-bright--light);
+    --t-opp-medium: var(--t-opp-medium--light);
+    --t-opp-muted: var(--t-opp-muted--light);
+    --gradient-one: var(--gradient-one--light);
+    --gradient-two: var(--gradient-two--light);
+    --gradient-three: var(--gradient-three--light);
+}
+
+/* --- Override variables when data-theme="dark" is applied to the HTML element --- */
+html[data-theme="dark"] {
+    --base: var(--base--dark);
+    --base-tint: var(--base-tint--dark);
+    --base-shade: var(--base-shade--dark);
+    --accent: var(--accent--dark);
+    --secondary: var(--secondary--dark);
+    --secondary-rgba: var(--secondary-rgba--dark);
+    --stroke-controls: var(--stroke-controls--dark);
+    --stroke-controls-neutral: var(--stroke-controls-neutral--dark);
+    --stroke-elements: var(--stroke-elements--dark);
+    --t-bright: var(--t-bright--dark);
+    --t-medium: var(--t-medium--dark);
+    --t-muted: var(--t-muted--dark);
+    --t-accent: var(--t-accent--dark);
+    --t-secondary: var(--t-secondary--dark);
+    --t-disabled: var(--t-disabled--dark);
+    --t-placeholder: var(--t-placeholder--dark);
+    --base-opp: var(--base-opp--dark);
+    --t-opp-bright: var(--t-opp-bright--dark);
+    --t-opp-medium: var(--t-opp-medium--dark);
+    --t-opp-muted: var(--t-opp-muted--dark);
+    --gradient-one: var(--gradient-one--dark);
+    --gradient-two: var(--gradient-two--dark);
+    --gradient-three: var(--gradient-three--dark);
+}
+
+/* --- You can optionally keep prefers-color-scheme for initial load, but it's not strictly necessary with the JS handling the data-theme on DOMContentLoaded --- */
+/* If you keep these, ensure they ONLY set the data-theme on the root element on page load.
+   However, since your JS already does this with `window.matchMedia`, these blocks become redundant for theme switching.
+   It's cleaner to remove them from here and rely solely on the `data-theme` attribute for theme management.
+*/
+/*
+@media (prefers-color-scheme: light) {
+    // No specific changes needed here if :root defaults to light
+}
+
+@media (prefers-color-scheme: dark) {
+    // No specific changes needed here as html[data-theme="dark"] will handle it
+}
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--_font-default);
+    background: var(--base); /* This will now dynamically change */
+    color: var(--t-bright); /* This will now dynamically change */
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background 0.5s ease, color 0.5s ease; /* Added for smooth transition */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Navigation */
+nav {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Use CSS variables for background to make it theme-aware */
+    background: var(--base-tint); /* Changed from static rgba to variable */
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--stroke-elements);
+    border-radius: var(--_radius-xl);
+    padding: 0.8rem 2rem;
+    z-index: 1000;
+    transition: all var(--_animspeed-medium) var(--_animbezier);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--t-bright);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--_animspeed-medium);
+    position: relative;
+}
+
+nav a:hover {
+    color: var(--t-accent);
+    transform: translateY(-2px);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    transition: width var(--_animspeed-medium);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    background: radial-gradient(ellipse at center, var(--secondary-rgba) 0%, transparent 70%);
+}
+
+.hero-content {
+    max-width: 800px;
+    animation: fadeInUp 1s var(--_animbezier);
+}
+
+.hero h1 {
+    font-size: clamp(3rem, 8vw, 8rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--gradient-one), var(--gradient-two), var(--gradient-three));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite alternate;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    color: var(--t-medium);
+    margin-bottom: 3rem;
+    animation: fadeInUp 1s var(--_animbezier) 0.2s both;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    color: white; /* Keep white as it's a call to action */
+    padding: 1.2rem 2.5rem;
+    border-radius: var(--_radius-l);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--_animspeed-medium) var(--_animbezier);
+    animation: fadeInUp 1s var(--_animbezier) 0.4s both;
+    box-shadow: 0 10px 30px var(--secondary-rgba);
+}
+
+.cta-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px var(--secondary-rgba);
+}
+
+/* Sections */
+section {
+    padding: 8rem 0;
+}
+
+.section-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 4rem;
+    color: var(--t-bright);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    border-radius: 2px;
+}
+
+/* About Section */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.about-text {
+    font-size: 1.2rem;
+    color: var(--t-medium);
+    line-height: 1.8;
+}
+
+.about-image {
+    position: relative;
+}
+
+.about-image::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: 20px;
+    bottom: 20px;
+    background: linear-gradient(135deg, var(--gradient-one), var(--gradient-two));
+    border-radius: var(--_radius-l);
+    z-index: -1;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: var(--_radius-l);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1); /* Consider using a theme-aware shadow */
+}
+
+/* Education Section */
+.education-grid {
+    display: grid;
+    gap: 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.education-card {
+    background: var(--base-tint); /* Changed from static rgba to variable */
+    border: 1px solid var(--stroke-elements);
+    border-radius: var(--_radius-l);
+    padding: 2.5rem;
+    transition: all var(--_animspeed-medium) var(--_animbezier);
+    position: relative;
+    overflow: hidden;
+}
+
+.education-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    transform: scaleX(0);
+    transition: transform var(--_animspeed-medium);
+}
+
+.education-card:hover::before {
+    transform: scaleX(1);
+}
+
+.education-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px var(--secondary-rgba);
+}
+
+.education-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--t-bright);
+}
+
+.education-card .institution {
+    font-size: 1.2rem;
+    color: var(--t-accent);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.education-card .duration {
+    color: var(--t-muted);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.education-card .description {
+    color: var(--t-medium);
+    line-height: 1.6;
+}
+
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+}
+
+.project-card {
+    background: var(--base-tint); /* Changed from static rgba to variable */
+    border: 1px solid var(--stroke-elements);
+    border-radius: var(--_radius-l);
+    padding: 2rem;
+    transition: all var(--_animspeed-medium) var(--_animbezier);
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    transform: scaleX(0);
+    transition: transform var(--_animspeed-medium);
+}
+
+.project-card:hover::before {
+    transform: scaleX(1);
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px var(--secondary-rgba);
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--t-bright);
+}
+
+.project-card p {
+    color: var(--t-medium);
+    margin-bottom: 1.5rem;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tag {
+    background: var(--secondary-rgba);
+    color: var(--t-accent);
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--_radius-s);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.project-link {
+    color: var(--t-accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--_animspeed-medium);
+}
+
+.project-link:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* Skills Section */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.skill-category {
+    background: var(--base-tint); /* Changed from static rgba to variable */
+    border: 1px solid var(--stroke-elements);
+    border-radius: var(--_radius-m);
+    padding: 2rem;
+    transition: all var(--_animspeed-medium);
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(135deg, var(--gradient-one), var(--gradient-two));
+    color: var(--base-opp); /* Text color when hovered */
+}
+
+.skill-category h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--t-bright);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.skill-category:hover h3 {
+    color: var(--base-opp); /* Text color when hovered */
+}
+
+.skill-list {
+    list-style: none;
+    display: grid;
+    gap: 0.8rem;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--t-medium);
+    font-weight: 500;
+}
+
+.skill-category:hover .skill-item {
+    color: var(--base-opp); /* Text color when hovered */
+}
+
+/* Contact Section */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem;
+}
+
+.form-group {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: var(--t-bright);
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    background: var(--base-tint); /* Changed from static rgba to variable */
+    border: 1px solid var(--stroke-elements);
+    border-radius: var(--_radius-s);
+    padding: 1rem;
+    color: var(--t-bright);
+    font-family: inherit;
+    transition: all var(--_animspeed-medium);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--secondary-rgba);
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    color: white; /* Keep white for button text */
+    border: none;
+    padding: 1.2rem 2rem;
+    border-radius: var(--_radius-s);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--_animspeed-medium);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px var(--secondary-rgba);
+}
+
+/* Footer */
+footer {
+    background: var(--base-tint); /* Changed from static rgba to variable */
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid var(--stroke-elements);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.social-link {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    color: white; /* Keep white for social link icons */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all var(--_animspeed-medium);
+}
+
+.social-link:hover {
+    transform: translateY(-5px) scale(1.1);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    background: var(--base-tint); /* Changed from static rgba to variable */
+    border: 1px solid var(--stroke-elements);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--_animspeed-medium);
+    z-index: 1001;
+    color: var(--t-bright); /* Ensure icon color changes with theme */
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    color: white; /* Color on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 2rem;
+        padding: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero h1 {font-size: 3rem;}
+    .hero p {font-size: 1.2rem;}
+    section {padding: 4rem 0;}
+    .section-title {font-size: 2rem;}
+}
